@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 
 import { Layout, theme } from "antd";
 import Header from "../components/common/Header";
 import {  Outlet } from "react-router-dom";
 import Siderbar from "../components/common/Siderbar";
+
 const AdminLayout = () => {
-  const {  Sider, Content } = Layout;
+  const {  Content } = Layout;
     const [collapsed, setCollapsed] = useState(false);
     const {
       token: { colorBgContainer, borderRadiusLG },
@@ -20,7 +21,7 @@ const AdminLayout = () => {
             style={{
               margin: "8px",
               padding: 24,
-              minHeight: 280,
+              height: "700px",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
