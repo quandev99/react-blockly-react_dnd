@@ -31,7 +31,7 @@ const Siderbar = ({ collapsed }) => {
       label: <Link to={"app/mission"}>Nhiệm vụ</Link>,
     },
   ];
-  const items2 = itemsChildren.map((item, index) => {
+  const children = itemsChildren.map((item, index) => {
     const key = String(index + 1);
     return {
       key: `sub${key}`,
@@ -40,7 +40,12 @@ const Siderbar = ({ collapsed }) => {
     };
   });
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Sider
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      style={{ background: colorBgContainer }}
+    >
       {/* <div className="bg-gray-400 w-full px-4 h-10 rounded-md " /> */}
       <Menu
         // theme="dark"
@@ -56,7 +61,7 @@ const Siderbar = ({ collapsed }) => {
             key: "2",
             icon: <VideoCameraOutlined />,
             label: <Link to={"app"}>Tự động hóa</Link>,
-            children: items2,
+            children: children,
           },
           {
             key: "4",

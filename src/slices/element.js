@@ -48,7 +48,7 @@ const elementSlice = createSlice({
     },
     addElementToLogin: (state, action) => {
       const { newElement, position } = action.payload;
-      state.login.elements.splice(position, 0, newElement);
+      state?.login?.elements?.splice(position, 0, newElement);
       // Optionally update the logins array if needed
       const loginIndex = state.logins.findIndex(
         (login) => login?.id === state.login?.id
@@ -194,6 +194,26 @@ const elementSlice = createSlice({
       state.logins = [login, ...state.logins];
       saveToLocalStorage(state.logins);
     },
+    addLogin: (state,action) => {
+      const id = action.payload;
+        const newLogin = {
+          id,
+          userId: 89475,
+          name: "Login",
+          description: "",
+          version: "1.0.0",
+          script: {
+            id,
+          },
+          elements: [],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        console.log("newLogin", newLogin);
+        state.logins = [newLogin, ...state.logins];
+       state.login = state.logins.find((login) => login.id === id) || {};
+        saveToLocalStorage(state.logins);
+    }
   },
 });
 
@@ -213,6 +233,7 @@ export const {
   updateLoginData,
   importLoginFileJson,
   removeLogin,
+  addLogin,
 } = elementSlice.actions;
 export const elementReducer = elementSlice.reducer;
 

@@ -19,11 +19,15 @@
 .editor {
   margin: 0.5rem;
 }
-.blockly-wrapper{
+/* .blockly-wrapper{
    height: 600px;
-  width: 82vw;
-}
+  width: auto;
+} */
 .blockly {
+  height: 600px;
+  width:80vw;
+}
+.injectionDiv  {
   height: 100%;
   width:100%;
 }
@@ -36,12 +40,7 @@
 .blocklyToolboxDiv .blocklyToolboxContents .blocklyToolboxCategory .blocklyTreeRow {
   width: 100%;
 }
-.blocklyScrollbarVertical .blocklyFlyoutScrollbar{
-  /* display: none !important; */
-}
-.blocklyScrollbarHandle{
-  display: none !important;
-}
+
 
 /* React dnd */
 

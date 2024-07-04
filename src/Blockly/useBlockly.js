@@ -24,8 +24,8 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
       theme: Theme,
       move: {
         scrollbars: {
-          horizontal: true,
-          vertical: true,
+          // horizontal: true,
+          // vertical: true,
         },
         drag: true,
         wheel: true,
