@@ -6,7 +6,7 @@ import BlocklyJS from "blockly/javascript";
 import DarkTheme from "@blockly/theme-dark";
 import Theme from "@blockly/theme-modern";
 import { updateLoginData } from "../slices/element";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export default function useBlockly({ initialBlock = null, toolbox }) {
@@ -45,6 +45,7 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
   }, [toolbox, initialBlock]);
   let { id } = useParams()
   const dispatch = useDispatch()
+  const { variable } = useSelector((state) => state.logins);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const exportWorkspaceToJSON = () => {
     const json = Blockly.serialization.workspaces.save(workspaceRef.current);
@@ -53,6 +54,7 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
        data: {
          script: {
            container: json,
+          //  variables: variable,
          },
        },
      };

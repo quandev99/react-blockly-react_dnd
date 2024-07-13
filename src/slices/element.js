@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid"; 
 const initialState = {
   logins: [],
   login: {},
+  variable: [],
   selectedElement: {},
   isLoading: false,
   error: "",
@@ -204,6 +205,7 @@ const elementSlice = createSlice({
           version: "1.0.0",
           script: {
             id,
+            variables:[]
           },
           elements: [],
           createdAt: new Date().toISOString(),
@@ -213,6 +215,15 @@ const elementSlice = createSlice({
         state.logins = [newLogin, ...state.logins];
        state.login = state.logins.find((login) => login.id === id) || {};
         saveToLocalStorage(state.logins);
+    },
+    addVariableByIdLogin : (state, action) => {
+      const { loginId, variables } = action.payload;
+      const login = state.logins.find((login) => login.id === loginId);
+      if (login) {
+       login.script.variables = variables;
+
+       state.login = login;
+      }
     }
   },
 });
@@ -234,6 +245,7 @@ export const {
   importLoginFileJson,
   removeLogin,
   addLogin,
+  addVariableByIdLogin,
 } = elementSlice.actions;
 export const elementReducer = elementSlice.reducer;
 

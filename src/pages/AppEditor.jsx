@@ -35,6 +35,7 @@ import SidebarItem from '../components/SidebarItem'
 import DropArea from '../components/DropArea'
 import ElementAttribute from '../components/ElementAttribute'
 import PreviewModal from '../components/PreviewModal'
+import ModalVariables from '../components/modal/ModalVariables.jsx'
 Blockly.setLocale(locale)
 const AppEditor = () => {
    const [messageApi, contextHolder] = message.useMessage();
@@ -42,9 +43,12 @@ const AppEditor = () => {
   const dispatch = useDispatch()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [on, setOn] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const [generated, setGenerated] = useState('')
   const { isOpen } = useSelector(state => state.app)
-  const { selectedElement, login } = useSelector(state => state.logins)
+  const { selectedElement, login, variable } = useSelector(
+    (state) => state.logins
+  );
   const {
     BlocklyComponent,
     generate,
@@ -83,8 +87,6 @@ const AppEditor = () => {
       content: "Update login success!",
     });
   }
-  
-  console.log("login", login);
   return (
     <div className="page">
       {contextHolder}
@@ -112,6 +114,11 @@ const AppEditor = () => {
           {on && (
             <Button type="primary" onClick={() => setPreviewOpen(true)}>
               Preview
+            </Button>
+          )}
+          {on && (
+            <Button type="primary" onClick={() => setOpenModal(true)}>
+              Create Variables
             </Button>
           )}
           <Dropdown
@@ -164,6 +171,10 @@ const AppEditor = () => {
               setPreviewOpen={() => setPreviewOpen(!previewOpen)}
               login={login}
             />
+            <ModalVariables
+              isOpen={openModal}
+              setPreviewOpen={() => setOpenModal(!openModal)}
+            ></ModalVariables>
           </DndProvider>
         </>
       ) : null}

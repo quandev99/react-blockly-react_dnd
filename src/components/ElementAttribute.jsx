@@ -2,14 +2,21 @@ import { Input, InputNumber, Select, Space, Switch, Typography } from "antd";
 import { updateElement } from "../slices/element";
 import RenderElement from "./attribute/RenderElementWithType";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 const { Option } = Select;
 
 const ElementAttribute = () => {
   const dispatch = useDispatch();
-  const { login, selectedElement } = useSelector(
+  const [variables, setVariables] = useState([])
+  const { login, selectedElement, variable } = useSelector(
     (state) => state.logins
   );
-  const variables = login?.script?.variables || [];
+  useEffect(()=>{
+    const dataVariables = login?.script?.variables;
+    if(dataVariables)
+      setVariables(dataVariables);
+  },[login?.script?.variables, variables])
+
  const handleAttributeChange = (key, value) => {
    const updatedOptions = { ...selectedElement.options };
    const updatedAttributes = { ...selectedElement };
@@ -29,6 +36,8 @@ const ElementAttribute = () => {
     );
     if (selectedVariable && !exitVariable) {
       updatedOptions.variable = selectedVariable;
+      updatedOptions.value = selectedVariable.value;
+      updatedOptions.label = selectedVariable.label;
     } else {
       alert("Variable is already used");
     }
