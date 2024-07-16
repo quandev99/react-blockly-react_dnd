@@ -8,7 +8,8 @@ const { Option } = Select;
 const ElementAttribute = () => {
   const dispatch = useDispatch();
   const [variables, setVariables] = useState([])
-  const { login, selectedElement, variable } = useSelector(
+   const [selected, setSelected] = useState(null);
+  const { login, selectedElement } = useSelector(
     (state) => state.logins
   );
   useEffect(()=>{
@@ -16,37 +17,59 @@ const ElementAttribute = () => {
     if(dataVariables)
       setVariables(dataVariables);
   },[login?.script?.variables, variables])
-
+ useEffect(() => {
+   setSelected(selectedElement?.options?.variable?.name);
+ }, [selectedElement?.options?.variable?.name]);
  const handleAttributeChange = (key, value) => {
    const updatedOptions = { ...selectedElement.options };
    const updatedAttributes = { ...selectedElement };
   if (key === "name") {
-    console.log("name", value);
     updatedAttributes.name = value;
   } else if (key === "isMultiple") {
-    console.log("isMultiple", value);
-    updatedOptions.isMultiple = value;
+       const updateOptions = (items) => {
+         return items?.map((item) => ({
+           ...item,
+           isCheck: false,
+         }));
+       };
+
+      const newOptions = updateOptions(updatedOptions?.options);
+    updatedOptions.options = newOptions;
     updatedOptions.value = "";
+    updatedOptions.isMultiple = value;
   } else if (key === "options.variable") {
-    const selectedVariable = variables.find(
-      (variable) => variable.id === value
-    );
-    const exitVariable = login?.elements?.find(
-      (item) => item?.options?.variable?.id === value
-    );
-    if (selectedVariable && !exitVariable) {
-      updatedOptions.variable = selectedVariable;
-      updatedOptions.value = selectedVariable.value;
-      updatedOptions.label = selectedVariable.label;
+    if (value === undefined) {
+      updatedOptions.variable = { id: null };
+      alert("Delete variable");
     } else {
-      alert("Variable is already used");
+      const selectedVariable = variables.find(
+        (variable) => variable.id === value
+      );
+      const exitVariable = login?.elements?.find(
+        (item) => item?.options?.variable?.id === value
+      );
+      if (selectedVariable && !exitVariable) {
+        updatedOptions.variable = selectedVariable;
+        updatedOptions.value = selectedVariable.value;
+        updatedOptions.label = selectedVariable.label;
+      } else {
+        alert("Variable is already used");
+      }
     }
   } else {
     const keys = key.split(".");
+    console.log("value1: ", value);
+    console.log("keys: ", keys[0]);
     if (keys.length === 2) {
       if (Array.isArray(updatedOptions[keys[0]])) {
         const getCheckedLabels = (items) => {
-          return items.filter((item) => item.isCheck).map((item) => item.value);
+          if (!updatedOptions.isMultiple) {
+            return items
+              ?.filter((item) => item?.isCheck)
+              .map((item) => item?.value)
+              .join("");
+          }
+          return items?.filter((item) => item?.isCheck).map((item) => item?.value);
         };
         updatedOptions[keys[0]] = [...value];
         updatedOptions.value = getCheckedLabels(value) || null;
@@ -63,6 +86,14 @@ const ElementAttribute = () => {
   updatedAttributes.options = updatedOptions;
    dispatch(updateElement({ id: selectedElement.id, updatedAttributes }));
  };
+  const isVariableUsed = (variableId) => {
+    return login?.elements?.some(
+      (item) => item?.options.variable?.id === variableId
+    );
+  };
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   return (
     <div className="element-attribute bg-[#eee] p-4 overflow-y-hidden">
       <div className="element-attribute-scroll">
@@ -74,14 +105,20 @@ const ElementAttribute = () => {
           <Select
             className="block"
             placeholder="Please Select"
-            value={selectedElement?.options?.variable?.id}
+            value={selected}
+            showSearch
             allowClear
+            onSearch={onSearch}
             onChange={(value) =>
               handleAttributeChange("options.variable", value)
             }
           >
             {variables?.map((item) => (
-              <Option key={item?.id} value={item?.id}>
+              <Option
+                key={item?.id}
+                value={item?.id}
+                disabled={isVariableUsed(item?.id)}
+              >
                 {item?.name}
               </Option>
             ))}

@@ -45,8 +45,6 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
   }, [toolbox, initialBlock]);
   let { id } = useParams()
   const dispatch = useDispatch()
-  const { variable } = useSelector((state) => state.logins);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const exportWorkspaceToJSON = () => {
     const json = Blockly.serialization.workspaces.save(workspaceRef.current);
      const newData = {
@@ -60,6 +58,7 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
      };
     dispatch(updateLoginData(newData));
     return 
+    // localStorage.setItem("workspace-state", JSON.stringify(json, null, 2));
     // const jsonString = JSON.stringify(json, null, 2);
     // downloadJSONFile(jsonString, "workspace.json");
   };

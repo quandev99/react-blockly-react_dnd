@@ -149,17 +149,6 @@ const AppEditor = () => {
                 {ListDataElement.elements.map((element) => (
                   <SidebarItem key={element.id} element={element} />
                 ))}
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    type="primary"
-                    onClick={() => dispatch(saveElement())}
-                  >
-                    Save
-                  </Button>
-                  <Button onClick={() => dispatch(deleteAllElements())}>
-                    Clear
-                  </Button>
-                </div>
               </div>
               <div className="content">
                 <DropArea login={login} />
@@ -183,6 +172,18 @@ const AppEditor = () => {
 }
 
 export default AppEditor
+
+      /* <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="primary"
+                    onClick={() => dispatch(saveElement())}
+                  >
+                    Save
+                  </Button>
+                  <Button onClick={() => dispatch(deleteAllElements())}>
+                    Clear
+                  </Button>
+                </div> */
 //  <div className="output">
 //             <button onClick={handleUpdateLogin}>Export JSON</button>
 //             <button onClick={handleGenerate}>Generate</button>

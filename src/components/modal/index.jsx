@@ -6,8 +6,8 @@ const ModalCustom = ({ isOpen, setPreviewOpen,  children }) => {
     <Modal
       title={
         <div className="flex items-center h-10 gap-x-4">
-          <div className="h-full w-[40px] bg-blue-100 p-2 rounded">
-            <img src={iconPreview} className="h-full w-full" alt="" />
+          <div className="h-full w-[42px] bg-blue-100 p-2 rounded flex items-center justify-center">
+            <span className="text-blue-500 text-[20px] block text-center">{"{x}"}</span>
           </div>
           <p className="text-2xl font-medium">Variables</p>
         </div>
@@ -16,7 +16,7 @@ const ModalCustom = ({ isOpen, setPreviewOpen,  children }) => {
       open={isOpen}
       onCancel={() => setPreviewOpen(false)}
       centered
-      width={700}
+      width={600}
     >
       <div className="w-full">{children}</div>
     </Modal>

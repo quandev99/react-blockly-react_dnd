@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space } from "antd";
 const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
-
   const valueOptionsData = valueOptions.options.options;
   const [form] = Form.useForm();
   const [optionCount, setOptionCount] = React.useState(0);
@@ -16,48 +15,11 @@ const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
     onOptionsChange(allValues.options);
   };
 
-  // const handleCheckboxChange = useCallback(
-  //   (index) => (e) => {
-  //     const { checked } = e.target;
-  //     const updatedOptions = valueOptionsData.map((option, i) => {
-  //       if (i === index) {
-  //         return { ...option, isCheck: checked };
-  //       }
-  //       return option;
-  //     });
-
-  //     let newValue;
-
-  //     if (valueOptions.type === "checkbox") {
-  //       newValue = updatedOptions
-  //         .filter((option) => option.isCheck)
-  //         .map((option) => option.value);
-  //     } else if (valueOptions.type === "select") {
-  //       const selectedOption = updatedOptions.find((option) => option.isCheck);
-  //       console.log("updatedOptions", selectedOption.value);
-  //       newValue = selectedOption ? selectedOption.value : null;
-  //     }
-
-  //     const newOptions = {
-  //       ...valueOptions,
-  //       options: {
-  //         ...valueOptions.options,
-  //         options: updatedOptions,
-  //         value: newValue,
-  //       },
-  //     };
-  //     console.log("newOptions", newOptions);
-
-  //     onOptionsChange(newOptions);
-  //   },
-  //   [onOptionsChange, valueOptions, valueOptionsData]
-  // );
-
   const handleCheckboxChange = useCallback(
     (index) => (e) => {
       const { checked } = e.target;
       const updatedOptions = valueOptionsData.map((option, i) => {
-        if (i === index ) {
+        if (i === index) {
           // Create a copy of the option object and modify the isCheck property
           return { ...option, isCheck: checked };
         }
@@ -67,7 +29,8 @@ const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
     },
     [onOptionsChange, valueOptionsData]
   );
-
+        const TYPEINPUT = valueOptions.type;
+        const ISMULTIPLE = valueOptions?.options?.isMultiple;
   return (
     <Form
       form={form}
@@ -87,6 +50,7 @@ const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
               >
                 <Checkbox
                   onChange={handleCheckboxChange(index)}
+                  disabled={!ISMULTIPLE && TYPEINPUT === "select" && index >= 1}
                   checked={valueOptionsData[index]?.isCheck || false}
                 ></Checkbox>
                 <Form.Item {...restField} name={[name, "label"]}>

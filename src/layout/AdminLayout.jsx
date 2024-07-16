@@ -21,7 +21,7 @@ const AdminLayout = () => {
             style={{
               margin: "8px",
               padding: 24,
-              height: "700px",
+              height: "650px",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}

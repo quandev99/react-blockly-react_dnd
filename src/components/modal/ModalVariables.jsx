@@ -12,18 +12,24 @@ const ModalVariables = ({ isOpen, setPreviewOpen }) => {
   const [optionCount, setOptionCount] = React.useState(0);
 
   const { login } = useSelector((state) => state.logins);
-  const variables = login?.script?.variables || [];
-  
-  console.log("login", login);
-  console.log("variables", variables);
+  const variables = login?.script?.variables;
+    React.useEffect(() => {
+      form.setFieldsValue({ options: variables });
+      setOptionCount(variables.length);
+    }, [form, variables]);
   const handleAddVariable = (allValues) => {
-    const updatedVariables = allValues.options.map((option) => ({
-      id: uuidv4(),
-      name: option.label,
-      label: option.label,
-      value: option.value,
-      secret: false,
-    }));
+    const updatedVariables = allValues.options.map((option) => {
+      const existingVariable = variables.find(
+        (variable) => variable.name === option.label
+      );
+      return {
+        id: existingVariable ? existingVariable.id : uuidv4(),
+        name: option.label,
+        label: option.label,
+        value: option.value,
+        secret: false,
+      };
+    });
 
     dispatch(
       addVariableByIdLogin({
@@ -38,17 +44,21 @@ const ModalVariables = ({ isOpen, setPreviewOpen }) => {
       <Form
         form={form}
         onValuesChange={(_, allValues) => handleAddVariable(allValues)}
-        style={{ maxWidth: 600 }}
         autoComplete="off"
         initialValues={{ options: variables }}
       >
-        <Form.List name="options">
+        <Space style={{ marginBottom: 20 }}>
+          <h4>Constant variables</h4>
+          <Button>PROFILE_ID</Button>
+          <Button>PROFILE_NAME</Button>
+        </Space>
+        <Form.List name="options" style={{ width: "100%" }}>
           {(fields, { add, remove }) => (
             <>
               {fields?.map(({ key, name, ...restField }, index) => (
                 <Space
                   key={key}
-                  style={{ display: "flex", marginBottom: 8, width: 600 }}
+                  style={{ display: "flex", marginBottom: 8, width: "100%" }}
                   align="baseline"
                 >
                   <Form.Item {...restField} name={[name, "label"]}>
@@ -58,9 +68,9 @@ const ModalVariables = ({ isOpen, setPreviewOpen }) => {
                   <Form.Item {...restField} name={[name, "value"]}>
                     <Input placeholder="Value" />
                   </Form.Item>
-                  <div className="flex bg-gray-100 h-[30px]">
+                  <div className="flex gap-x-2 h-[30px]">
                     <MinusOutlined
-                      className=" bg-gray-100 border-r px-2"
+                      className=" bg-gray-100 border-r px-2 "
                       onClick={() => {
                         remove(name);
                         setOptionCount(optionCount - 1);
