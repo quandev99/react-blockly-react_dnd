@@ -82,7 +82,7 @@
 
 .drop-area {
   width: 500px;
-  max-height: 600px;
+  max-height: 560px;
   padding: 20px;
   background-color: #b7b4b4;
   -ms-overflow-style: none; 
@@ -95,7 +95,7 @@
 
 .dragging-over {
   width: 500px;
-  height: 100vh;
+  max-height: 560px;
   padding: 20px;
   margin-bottom: 50px;
   background-color: #b7b4b4;
@@ -188,7 +188,7 @@
 
 .element-attribute{
   width: 450px;
-  max-height: 660px;
+  max-height: 560px;
    /* -ms-overflow-style: none; 
   scrollbar-width: none; */
   overflow-y: scroll;
