@@ -48,19 +48,11 @@ const DropArea = ({ login }) => {
 
   drop(dropRef);
 
-  const [componentDisabled, setComponentDisabled] = useState(true);
   return (
-    <div>    
-      {/* <Checkbox
-        // className="hidden"
-        checked={componentDisabled}
-        onChange={(e) => setComponentDisabled(e.target.checked)}
-      >
-        Show Form
-      </Checkbox> */}
+    <div className="content">    
       <Form
         layout="horizontal"
-        disabled={componentDisabled}
+        disabled={true}
         style={{ maxWidth: 600 }}
       >
         <div

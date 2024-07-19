@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
-import { Button, Layout,theme } from "antd";
-function Header({ collapsed, setCollapsed }) {
+import React from "react";
+
+import { Layout,theme } from "antd";
+function Header() {
   const { Header } = Layout;
   const {
     token: { colorBgContainer },
@@ -14,18 +11,14 @@ function Header({ collapsed, setCollapsed }) {
       style={{
         padding: 0,
         background: colorBgContainer,
+        position: "sticky",
+        width: "100%",
+        top: 0,
+        zIndex: 99,
+        border: "1px solid #eee",
       }}
     >
-      <Button
-        type="text"
-        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        onClick={() => setCollapsed(!collapsed)}
-        style={{
-          fontSize: "16px",
-          width: 64,
-          height: 64,
-        }}
-      />
+      App Editor
     </Header>
   );
 }

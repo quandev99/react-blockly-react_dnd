@@ -7,30 +7,33 @@ import Siderbar from "../components/common/Siderbar";
 
 const AdminLayout = () => {
   const {  Content } = Layout;
-    const [collapsed, setCollapsed] = useState(false);
     const {
       token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+    const [collapsed, setCollapsed] = useState(false);
   return (
-    <div>
-      <Layout>
-        <Siderbar collapsed={collapsed}></Siderbar>
-        <Layout>
-          <Header setCollapsed={setCollapsed} collapsed={collapsed}></Header>
-          <Content
-            style={{
-              margin: "8px",
-              padding: 24,
-              height: "650px",
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Outlet />
-          </Content>
+      <>
+        <Siderbar collapsed={collapsed} setCollapsed={setCollapsed}></Siderbar>
+        <Layout
+          style={{
+            marginLeft: collapsed ? 80 : 200, 
+            transition: "margin-left 0.2s",
+            height: "100%",
+          }}
+        >
+          <>
+            <Header></Header>
+            <Content
+              style={{
+                background:  colorBgContainer,
+              }}
+              className="content-wrapper"
+            >
+              <Outlet />
+            </Content>
+          </>
         </Layout>
-      </Layout>
-    </div>
+      </>
   );
 }
 

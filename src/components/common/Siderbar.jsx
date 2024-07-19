@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import {
   LaptopOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
   NotificationOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
 
-const Siderbar = ({ collapsed }) => {
+const Siderbar = ({ collapsed, setCollapsed }) => {
   const { Sider } = Layout;
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -44,11 +46,29 @@ const Siderbar = ({ collapsed }) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
-      style={{ background: colorBgContainer }}
+      style={{
+        background: colorBgContainer,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100%",
+        zIndex: 99,
+        width: collapsed ? 80 : 200,
+        overflow: "auto",
+      }}
+      className="sider-container"
     >
-      {/* <div className="bg-gray-400 w-full px-4 h-10 rounded-md " /> */}
+      <Button
+        type="text"
+        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          fontSize: "16px",
+          width: 30,
+          height: 30,
+        }}
+      />
       <Menu
-        // theme="dark"
         mode="inline"
         defaultSelectedKeys={["1"]}
         items={[
@@ -64,7 +84,19 @@ const Siderbar = ({ collapsed }) => {
             children: children,
           },
           {
-            key: "4",
+            key: "3333",
+            icon: <VideoCameraOutlined />,
+            label: <Link to={"app"}>Tự động hóa</Link>,
+            children: children,
+          },
+          {
+            key: "3333333",
+            icon: <VideoCameraOutlined />,
+            label: <Link to={"app"}>Tự động hóa</Link>,
+            children: children,
+          },
+          {
+            key: "43333",
             icon: <UploadOutlined />,
             label: "Lịch trình",
           },

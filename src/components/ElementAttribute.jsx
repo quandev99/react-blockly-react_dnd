@@ -95,7 +95,7 @@ const ElementAttribute = () => {
     console.log("search:", value);
   };
   return (
-    <div className="element-attribute bg-[#eee] p-4 overflow-y-hidden">
+    <div className="element-attribute bg-[#eee]">
       <div className="element-attribute-scroll">
         <h2 className="text-blue-500 font-medium text-xl mb-5">
           Component Attribute

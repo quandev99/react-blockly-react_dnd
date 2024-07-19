@@ -88,8 +88,9 @@ const AppEditor = () => {
     });
   }
   return (
-    <div className="page">
+    <div className='p-5'>
       {contextHolder}
+
       <div className="flex justify-between mb-2">
         <Link to="/app">
           <Button icon={<ArrowLeftOutlined />} type="link">
@@ -138,11 +139,10 @@ const AppEditor = () => {
           </Dropdown>
         </Space>
       </div>
-      <div className={`blockly-wrapper ${on ? "hidden" : ""}`}>
+      <div className={`blockly-container ${on ? "hidden" : ""}`}>
         <BlocklyComponent />
       </div>
       {on ? (
-        <>
           <DndProvider backend={HTML5Backend}>
             <div className="app">
               <div className="sidebar">
@@ -150,10 +150,8 @@ const AppEditor = () => {
                   <SidebarItem key={element.id} element={element} />
                 ))}
               </div>
-              <div className="content">
-                <DropArea login={login} />
-              </div>
-              <div>{isOpen && selectedElement && <ElementAttribute />}</div>
+              <DropArea login={login} />
+              {isOpen && selectedElement && <ElementAttribute />}
             </div>
             <PreviewModal
               isOpen={previewOpen}
@@ -165,7 +163,6 @@ const AppEditor = () => {
               setPreviewOpen={() => setOpenModal(!openModal)}
             ></ModalVariables>
           </DndProvider>
-        </>
       ) : null}
     </div>
   );

@@ -39,7 +39,14 @@ export default function useBlockly({ initialBlock = null, toolbox }) {
 
       workspaceRef.current.render();
     }
+    const handleResize = () => {
+      Blockly.svgResize(workspaceRef.current);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
      return () => {
+       window.removeEventListener("resize", handleResize);
        workspaceRef.current.dispose();
      };
   }, [toolbox, initialBlock]);

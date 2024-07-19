@@ -15,18 +15,18 @@ const ModalVariables = ({ isOpen, setPreviewOpen }) => {
   const variables = login?.script?.variables;
     React.useEffect(() => {
       form.setFieldsValue({ options: variables });
-      setOptionCount(variables.length);
+      setOptionCount(variables?.length || 0);
     }, [form, variables]);
   const handleAddVariable = (allValues) => {
     const updatedVariables = allValues.options.map((option) => {
-      const existingVariable = variables.find(
-        (variable) => variable.name === option.label
+      const existingVariable = variables?.find(
+        (variable) => variable?.name === option?.label
       );
       return {
         id: existingVariable ? existingVariable.id : uuidv4(),
-        name: option.label,
-        label: option.label,
-        value: option.value,
+        name: option?.label,
+        label: option?.label,
+        value: option?.value,
         secret: false,
       };
     });
