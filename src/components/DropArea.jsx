@@ -49,11 +49,11 @@ const DropArea = ({ login }) => {
   drop(dropRef);
 
   return (
-    <div className="content">    
+    <div className="content">
       <Form
         layout="horizontal"
         disabled={true}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: "100%", minHeight: "100%" }}
       >
         <div
           ref={dropRef}

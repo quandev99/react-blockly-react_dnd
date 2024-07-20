@@ -11,7 +11,7 @@ import useBlockly from '../Blockly/useBlockly'
 import '../index.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { toolbox } from '../Data/toolbox'
-import { Button, Dropdown, Space, Switch, message } from 'antd'
+import { Button, Col, Dropdown, Row, Space, Switch, message } from 'antd'
 import { useParams } from 'react-router-dom'
 
 import {
@@ -88,7 +88,7 @@ const AppEditor = () => {
     });
   }
   return (
-    <div className='p-5'>
+    <div className="p-5">
       {contextHolder}
 
       <div className="flex justify-between mb-2">
@@ -143,26 +143,26 @@ const AppEditor = () => {
         <BlocklyComponent />
       </div>
       {on ? (
-          <DndProvider backend={HTML5Backend}>
-            <div className="app">
-              <div className="sidebar">
-                {ListDataElement.elements.map((element) => (
-                  <SidebarItem key={element.id} element={element} />
-                ))}
-              </div>
-              <DropArea login={login} />
-              {isOpen && selectedElement && <ElementAttribute />}
+        <DndProvider backend={HTML5Backend}>
+          <div className="app grid grid-cols-3 gap-x-6">
+            <div className="sidebar">
+              {ListDataElement.elements.map((element) => (
+                <SidebarItem key={element.id} element={element} />
+              ))}
             </div>
-            <PreviewModal
-              isOpen={previewOpen}
-              setPreviewOpen={() => setPreviewOpen(!previewOpen)}
-              login={login}
-            />
-            <ModalVariables
-              isOpen={openModal}
-              setPreviewOpen={() => setOpenModal(!openModal)}
-            ></ModalVariables>
-          </DndProvider>
+            <DropArea login={login} />
+            {isOpen && selectedElement && <ElementAttribute />}
+          </div>
+          <PreviewModal
+            isOpen={previewOpen}
+            setPreviewOpen={() => setPreviewOpen(!previewOpen)}
+            login={login}
+          />
+          <ModalVariables
+            isOpen={openModal}
+            setPreviewOpen={() => setOpenModal(!openModal)}
+          ></ModalVariables>
+        </DndProvider>
       ) : null}
     </div>
   );

@@ -137,8 +137,8 @@ const rowSelection = {
            URL.revokeObjectURL(a.href);
          };
     return (
-      <div>
-        <div className="flex justify-end">
+      <div className="p-5">
+        <div className="flex justify-end mb-10">
           <Flex gap="small" wrap>
             <div className="flex text-blue-500">
               <input
@@ -176,7 +176,6 @@ const rowSelection = {
             </div>
           </Flex>
         </div>
-        <Link to="editor">Mở</Link>
         <Table
           rowSelection={{
             ...rowSelection,

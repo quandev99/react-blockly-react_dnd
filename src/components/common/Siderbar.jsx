@@ -11,7 +11,7 @@ import {
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
 
-const Siderbar = ({ collapsed, setCollapsed }) => {
+const Siderbar = ({ collapsed, setCollapsed, themeApp }) => {
   const { Sider } = Layout;
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -47,7 +47,7 @@ const Siderbar = ({ collapsed, setCollapsed }) => {
       collapsible
       collapsed={collapsed}
       style={{
-        background: colorBgContainer,
+        background: themeApp ? colorBgContainer : "#000",
         position: "fixed",
         top: 0,
         left: 0,
@@ -66,9 +66,11 @@ const Siderbar = ({ collapsed, setCollapsed }) => {
           fontSize: "16px",
           width: 30,
           height: 30,
+          marginLeft:20
         }}
       />
       <Menu
+        theme={!themeApp ? "dark" : "light"}
         mode="inline"
         defaultSelectedKeys={["1"]}
         items={[
