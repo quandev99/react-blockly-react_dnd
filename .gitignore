@@ -11,6 +11,8 @@
 # production
 /build
 /dist
+/src/wailsjsdir
+package.json.md5
 
 # misc
 .DS_Store
